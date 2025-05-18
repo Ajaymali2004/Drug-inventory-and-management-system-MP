@@ -50,14 +50,22 @@ export default function AdminDashboard() {
           'Authorization': `Bearer ${token}`
         }
       });
-      if (!res.ok) throw new Error('Failed to fetch registered users');
-      const data = await res.json();
+      
+      const data = await res.json(); 
+      
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to fetch registered users');
+      }
+      
       setRegisteredUsers(data);
+      
     } catch (err: any) {
       setError(err.message);
     }
   };
-
+  const handleUserClick = (userId: string) => {
+    setSelectedUser(userId);
+  };
   const handleApproval = async (userId: string, approved: boolean) => {
     try {
       const token = localStorage.getItem('token');
@@ -217,10 +225,14 @@ export default function AdminDashboard() {
 
               {selectedUser && (
                 <div className="mt-8">
-                  <StockGraph
-                    userId={selectedUser}
-                    userName={registeredUsers.find(u => u._id === selectedUser)?.name || ''}
-                  />
+                  {selectedUser && registeredUsers.find(u => u._id === selectedUser) ? (
+                    <StockGraph
+                      userId={selectedUser}
+                      userName={registeredUsers.find(u => u._id === selectedUser)!.name}
+                    />
+                    ) : (
+                    <p>No user selected or user data not found.</p>
+                  )}
                 </div>
               )}
             </div>

@@ -3,8 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { Cylinder, Box } from '@react-three/drei';
 
 export default function MedicineModel() {
-  const pillRef = useRef<any>();
-  
+  const pillRef = useRef<any>(null);
   useFrame((state) => {
     if (pillRef.current) {
       pillRef.current.rotation.y += 0.01;

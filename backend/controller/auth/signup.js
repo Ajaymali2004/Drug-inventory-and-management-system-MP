@@ -4,7 +4,7 @@ const User = require('../../models/User'); // adjust path
 const signup = async (req, res) => {
     try {
         const { email, password, role, name } = req.body;
-
+        console.log(req.body);
         if (role === 'admin') {
             return res.status(400).json({ message: 'Cannot register as admin' });
         }

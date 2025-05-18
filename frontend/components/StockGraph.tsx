@@ -24,6 +24,7 @@ export default function StockGraph({ userId, userName }: StockGraphProps) {
     { id: 5, name: 'Drug ID: 5' },
   ];
 
+    
   useEffect(() => {
     fetchStockHistory();
   }, [selectedDrug]);

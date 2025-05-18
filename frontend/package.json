@@ -19,7 +19,8 @@
     "react-dom": "^19.0.0",
     "recharts": "^2.15.3",
     "socket.io-client": "^4.8.1",
-    "three": "^0.176.0"
+    "three": "^0.176.0","chart.js": "^4.4.4",
+  "react-chartjs-2": "^5.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

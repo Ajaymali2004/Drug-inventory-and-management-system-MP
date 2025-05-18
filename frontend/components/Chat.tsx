@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { Socket } from "socket.io-client";
+import { useRouter } from 'next/router';
 
 interface Message {
   senderId: string;
@@ -25,7 +26,7 @@ export default function Chat({ userId, userRole }: ChatProps) {
     { _id: string; name: string; role: string }[]
   >([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
+  const router = useRouter();
   useEffect(() => {
     const newSocket = io("http://localhost:5000");
     setSocket(newSocket);
@@ -77,7 +78,13 @@ export default function Chat({ userId, userRole }: ChatProps) {
 
     fetchUsers();
   }, [userRole]);
-
+useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+    }
+     
+  }, []);
   useEffect(() => {
     if (selectedUser) {
       const fetchMessages = async () => {

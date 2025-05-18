@@ -195,12 +195,14 @@ io.on('connection', (socket) => {
         console.log('User disconnected:', socket.id);
     });
 });
-
+require('dotenv').config();
 const PORT = process.env.PORT || 5000;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/drug-inventory')
-    .then(() => {
-        server.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-        });
-    })
-    .catch(err => console.error('Database connection error:', err));
+
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    console.log('Connected to MongoDB');
+    server.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+})
+.catch(err => console.error('Database connection error:', err));

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 interface Drug {
   drugId: number;
@@ -15,7 +16,7 @@ export default function InventoryManagement({ userRole, userId }: InventoryManag
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [updateQuantity, setUpdateQuantity] = useState<{ [key: number]: number }>({});
-
+  const router = useRouter();
   const fetchInventory = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -59,6 +60,12 @@ export default function InventoryManagement({ userRole, userId }: InventoryManag
     }
   };
 
+useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+    } 
+  }, []);
   useEffect(() => {
     fetchInventory();
   }, [userId]);
